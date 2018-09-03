@@ -26,4 +26,13 @@ router.post('/api/spot', (req, res)=>{
   })
 })
 
+router.get('/api/spot', (req, res)=>{
+  Spot.find({}, (err, data)=>{
+    if(err) return res.status(500).send({message: "Error en la base de datos"})
+    if(!data) return res.status(404).send({message: `No se encuentra`})
+
+    res.status(200).send({data})
+  })
+})
+
 module.exports = router;
