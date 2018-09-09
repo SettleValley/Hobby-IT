@@ -4,11 +4,34 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const SpotSchema = Schema({
-  title: String,
-  picture: String,
-  description: String,
-  ranking: {type: Number, default: 0},
-  category: {type: String, enum: ['photography', 'skateboard', 'training']},
+  status: {type: Boolean, default: false},
+  name: {type: String, required: true},
+  gallery:[{
+    title: String,
+    url: String,
+    format: String
+  }],
+  description: {type: String, required: true},
+  Comments: [{
+    type: Schema.Types.ObjectId,
+    ref: 'CommentsSchema'
+  }],
+  addedBy: [{
+    type: Schema.Types.ObjectId,
+    ref: 'UserSchema'
+  }],
+  addres: [{
+    lat: String,
+    lng: String
+  }],
+  categories: [{
+    type: Schema.Types.ObjectId,
+    ref: 'CategorySchema'
+  }],
+  facilities: [{
+    type: Schema.Types.ObjectId,
+    ref: 'FacilitySchema'
+  }]
 })
 
 module.exports = mongoose.model('Spot', SpotSchema)
