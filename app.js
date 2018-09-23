@@ -14,6 +14,15 @@ const users = require('./routes/users')
 const hbs = require('express-handlebars')
 //session user
 const session = require('express-session')
+//session conect
+const MongoStore = require('connect-mongo')(session);
+//passport
+const passport = require('passport');
+const flash = require('connect-flash');
+const validator = require('express-validator')
+
+//db
+const mongoose = require('mongoose');
 
 const app = express()
 
@@ -34,7 +43,24 @@ app.set('view options', { layout: 'base' });
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(validator());
 app.use(cookieParser());
+//session init
+app.use(session({
+  secret: 'mysupersecret',
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({mongooseConnection: mongoose.connection}),
+  cookie: {
+    maxAge: 180 * 60 * 1000
+  }
+}));
+//flash init
+app.use(flash());
+//passport init
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(sassMiddleware({
   src: path.join(__dirname, 'public'),
   dest: path.join(__dirname, 'public'),
@@ -42,6 +68,16 @@ app.use(sassMiddleware({
   sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
+
+/* global variable to use in routes or from the views*/
+app.use(function(req, res, next){
+  res.locals.login = req.isAuthenticated();
+  console.log(res.session);
+  console.log(req.isAuthenticated());
+  res.locals.session = req.session;
+  next();
+});
+
 
 app.use('/', index);
 app.use('/users', users);

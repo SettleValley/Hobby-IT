@@ -1,9 +1,16 @@
+'use strict'
 var express = require('express');
 var router = express.Router();
+var csrf = require('csurf');
+var passport = require('passport');
+var csrfProtect = csrf();
+router.use(csrfProtect);
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+router.get('/signup', function (req, res, next) {
+  var messages = req.flash('error');
+  res.render('signup', { csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0 });
 });
+
 
 module.exports = router;
