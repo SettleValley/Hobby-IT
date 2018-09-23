@@ -19,7 +19,7 @@ router.route('/signup')
     res.render('signup',{csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0 })
   })
   .post(passport.authenticate('local.signup', {
-    failureRedirect: '/user/signup',
+    failureRedirect: '/users/signup',
     failureFlash: true
   }),(req, res)=>{
     console.log("postiando ps")
@@ -32,17 +32,26 @@ router.route('/signup')
     }
   })
 
-// Post to signup
-// router.post('/signup', passport.authenticate('local.signup', {
-//
-// }), function (req, res, next) {
-//   if (req.session.oldUrl) {
-//     var Url = req.session.oldUrl;
-//     req.session.oldUrl = null;
-//     res.redirect(Url);
-//   } else {
-//     res.redirect('/user/profile');
-//   }
-// });
+  router.route('/signin')
+    .get((req,res)=>{
+      const messages = req.flash('error')
+      console.log("index signin")
+      res.render('signin',{csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0 })
+    })
+    .post(passport.authenticate('local.signin', {
+      failureRedirect: '/users/signin',
+      failureFlash: true
+    }),(req, res)=>{
+      console.log("entrando ps")
+      if (req.session.oldUrl) {
+        const Url = req.session.oldUrl;
+        req.session.oldUrl = null;
+        res.message(Url);
+      }else {
+        res.redirect('/users/signup');
+      }
+    })
+
+
 
 module.exports = router;

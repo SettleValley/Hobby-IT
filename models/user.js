@@ -17,12 +17,20 @@ const UserSchema = Schema({
   created_Date: {type:Date, default: Date.now}
 })
 
-UserSchema.methods.encryptPassword = (password) =>{
-  return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null)
+
+UserSchema.methods.encryptPassword = function(password){
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null);
 };
 
-UserSchema.methods.validPassword = (password)=>{
-  return bcrypt.compareSync(password, this.password)
+UserSchema.methods.validPassword  = function(password){
+    return bcrypt.compareSync(password, this.password);
 };
+// UserSchema.methods.encryptPassword = (password) =>{
+//   return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null)
+// }
+//
+// UserSchema.methods.validPassword = (password)=>{
+//   return bcrypt.compareSync(password, this.password)
+// }
 
 module.exports = mongoose.model('User', UserSchema)
