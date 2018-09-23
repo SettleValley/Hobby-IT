@@ -13,4 +13,7 @@ p {
 a i {
   color: black; }
 
+.border-b {
+  border-bottom: 1px solid #ececec; }
+
 /*# sourceMappingURL=style.css.map */

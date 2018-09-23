@@ -7,7 +7,7 @@ const Spot = require('../models/spot')
 /* GET home page. */
 router.get('/', (req, res)=>{
   const user = req.user
-  res.render('index', {title: 'Hobb It', user: user})
+  res.render('index', {title: 'Hobby It', user: user})
 })
 // Spot Routes
 router.post('/api/spot', (req, res)=>{
