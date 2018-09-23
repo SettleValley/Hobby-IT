@@ -1,32 +1,53 @@
 'use strict'
-const passport = require('passport')
-const User = require('../models/user')
-const LocalStrategy = require('passport-local').Strategy
+var passport = require('passport');
+var User = require('../models/user');
+var LocalStrategy  = require('passport-local').Strategy;
 
-passport.serializeUser = (user, done) =>{
-  done(null, user.id)
-}
+passport.serializeUser(function(user, done){
+    done(null, user.id);
+});
+passport.deserializeUser(function(id, done){
+    User.findById(id, function(err, user){
+        done(err, user);
+    });
+});
 
-passport.deserializeUser = (id, done) =>{
-  User.findBydId(id, (err, user)=>{
-    done(err, user)
-  });
-}
 
-passport.user('local.signup', new LocalStrategy({
-  usernameField: 'email',
-  passwordField: 'password',
-  passReqToCallback: true
-}, (req, email, password, done)=>{
-  req.checkBody('email', 'Invalid Email').notEmpty().isEmail()
-  req.checkBody('password', 'Invalid Password').notEmpty().isLength({min:4})
+// User Sign up strategy
+passport.use('local.signup', new LocalStrategy ({
+    usernameField: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+}, function(req, email, password, done){
+    req.checkBody('email', 'Invalid Email').notEmpty().isEmail();
+    req.checkBody('password', 'Invalid password').notEmpty().isLength({min:4});
+    var errors = req.validationErrors();
+    if(errors){
+        var messages = [];
+        errors.forEach(function(error){
+            messages.push(error.msg);
+        });
+        return done(null, false, req.flash('error', messages));
+    }
+    User.findOne({'email': email}, function(err, user){
+        if (err) {
+            return done(err);
+        }
+        if (user){
+            return done(null, false, {message: 'El correo ya esta utilizado'});
+        }
 
-  let erros = req.validationErrors();
-  if (errors) {
-    let messages = [];
-    errors.forEach((error)=>{
-      messages.push(error.msg)
-    })
-    return done(null, false, req.flash('error', messages))
-  }
-}))
+        var newUser = new User();
+        newUser.email = email;
+        newUser.password = newUser.encryptPassword(password);
+        newUser.save(function(err, result){
+            if(err){
+                return done(err);
+            }
+            console.log("paso bien");
+
+            return done(null, newUser);
+        });
+
+    });
+}));

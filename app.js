@@ -26,6 +26,8 @@ const mongoose = require('mongoose');
 
 const app = express()
 
+require('./config/passport')
+
 // view engine setup
 app.engine('hbs', hbs({
     extname: 'hbs', defaultLayout: 'base',

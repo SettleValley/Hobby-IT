@@ -6,7 +6,7 @@ const Schema = mongoose.Schema
 const bcrypt = require('bcrypt-nodejs')
 
 const UserSchema = Schema({
-  name: {type: String, required: true},
+  name: {type: String, required: true, default: 'User'},
   email: {type: String, required: true},
   password: {type: String, required: true},
   priority: {type: String, enum:['Regular', 'Admin', 'ShopOwner', 'Organizer' ], default: 'Regular'},
@@ -17,7 +17,7 @@ const UserSchema = Schema({
   created_Date: {type:Date, default: Date.now}
 })
 
-UserSchema.methods.encyptPassword = (password) =>{
+UserSchema.methods.encryptPassword = (password) =>{
   return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null)
 };
 
