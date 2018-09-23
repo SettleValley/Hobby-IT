@@ -10,7 +10,11 @@ router.use(csrfProtect);
   REST User, try to make this function with promise,
   that make this code more readable
 */
-
+//Log Out
+router.get('/logout', (req, res)=>{
+  req.logout()
+  res.redirect('/')
+})
 /* GET users listing. */
 router.route('/signup')
   .get((req,res)=>{

@@ -1,2 +1,37 @@
-<h1>{{title}}</h1>
-<p>Bienvenido {{user.email}}</p>
+<section class="grey-color">
+  <div class="container">
+    <div class="row py-5">
+      <div class="col-md-7">
+        {{#if login}}
+          <h3 class="font-weight-light">
+            Bienvenido
+            <span class="font-weight-bold">{{user.email}}</span>
+          </h3>
+            <p class="text-justify">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              Duis aute irure dolor in reprehenderit in volup- tate velit esse cillum dolore euopd.
+            </p>
+            <div class="social-icons-box">
+              <span class="font-weight-bold">Social Network: </span>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+            </div>
+          {{else}}
+          <h3 class="font-weight-light">
+            Bienvenido
+          </h3>
+          <p class="text-justify">
+            <span class="font-weight-bold">Hobby IT</span> es una plataforma que centraliza las ubicaciones de spots específicos relacionados a hobbies que pueden realizarse en la
+            República de Panamá; permitiendo al usuario explorar, conocer y compartir con otros miembros de las subcomunidades existentes en el país.
+            Como complemento a los spots, se incluyen eventos y tiendas afines a los pasatiempos que se desarrollan en el área;
+            así como un sistema de calificaciones que valida la aprobación por parte de otros usuarios.
+          </p>
+          <a class="btn btn-dark" href="/users/signin" role="button">Sign In</a>
+          <a class="btn btn-secondary" href="/users/signup" role="button">Sign Up</a>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>
