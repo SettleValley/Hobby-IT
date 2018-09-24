@@ -23,7 +23,7 @@ const fileFilter = (req, file, cb)=>{
 const upload = multer({
   storage: storage,
   limits: {
-    fileSize: 1024 * 1024 * 5
+    fileSize: 5120 * 5120 * 5
   },
   fileFilter: fileFilter
 }).array('spotImage', 12)
@@ -50,14 +50,11 @@ router.route('/spot')
     })
     .post((req, res)=>{
       // console.log(req.files)
-
       upload(req, res, function(err){
-        console.log(req.body)
         console.log(req.files)
         if (err) {
           res.send('Error al subir la imagen')
         }
-
         let spot = new Spot()
         spot.status = true
         spot.name = req.body.name
@@ -73,7 +70,7 @@ router.route('/spot')
             return err
           }
           req.flash('success', 'Successfully Post')
-          res.redirect('/')
+          res.redirect('/spot')
         })
       });
     })
