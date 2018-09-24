@@ -1,0 +1,39 @@
+<section class="grey-color py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h3 class="font-weight-bold ">
+          {{spot.name}}
+        </h3>
+        <div class="social-icons-box">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h4 class="font-weight-bold">Details</h4>
+        <hr class="my-4">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <img class="card-img" src="http://via.placeholder.com/720x480?text=HobbyIt" alt="Card image cap">
+      </div>
+      <div class="col-md-6">
+        <p>
+          {{spot.description}}
+        </p>
+        <span>Latitud: {{spot.address.lat}}</span>
+        <span>Longitud: {{spot.address.lng}}</span>
+      </div>
+    </div>
+  </div>
+</section>

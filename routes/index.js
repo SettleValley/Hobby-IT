@@ -43,6 +43,17 @@ router.route('/spot')
       })
     })
 
+// Spot Details
+router.get('/detail/:id', (req, res)=>{
+  const spotId = req.params.id
+  Spot.findById(spotId, (err, info)=>{
+    if (err) {
+      res.send('El detalle tiene error' + err)
+    }
+    res.render('detail', {spot: info} )
+  })
+})
+
 // router.post('/api/spot', (req, res)=>{
 //   console.log('POST /api/spot/')
 //   console.log(req.body)
