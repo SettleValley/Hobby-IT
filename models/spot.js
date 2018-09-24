@@ -17,10 +17,10 @@ const SpotSchema = Schema({
   //   ref: 'CommentsSchema'
   // }],
   addedBy:{type: Schema.Types.ObjectId, ref: 'User'},
-  address: [{
+  address:{
     lat: String,
     lng: String
-  }]
+  }
   // ,
   // categories: [{
   //   type: Schema.Types.ObjectId,

@@ -14,10 +14,6 @@ const UserSchema = Schema({
     type: Schema.Types.ObjectId,
     ref: 'CategorySchema'
   }],
-  spots: [{
-    type: Schema.Types.ObjectId,
-    ref: 'Spot'
-  }],
   created_Date: {type:Date, default: Date.now}
 })
 
