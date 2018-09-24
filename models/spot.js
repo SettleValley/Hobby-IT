@@ -6,11 +6,7 @@ const Schema = mongoose.Schema
 const SpotSchema = Schema({
   status: {type: Boolean, default: false},
   name: {type: String, required: true},
-  gallery:[{
-    title: String,
-    url: String,
-    format: String
-  }],
+  gallery:[{}],
   description: {type: String, required: true},
   // Comments: [{
   //   type: Schema.Types.ObjectId,

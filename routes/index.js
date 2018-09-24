@@ -3,6 +3,30 @@ const express = require('express')
 const router = express.Router()
 // models
 const Spot = require('../models/spot')
+const multer = require('multer')
+//Multer Config
+const storage = multer.diskStorage({
+  destination: function(req, file, cb){
+    cb(null, './public/uploads/')
+  },
+  filename: function(req, file, cb){
+    cb(null, new Date().toISOString() + file.originalname)
+  }
+});
+const fileFilter = (req, file, cb)=>{
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'image/jpg') {
+    cb(null, true)
+  }else {
+    cb(null, false)
+  }
+}
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: fileFilter
+}).array('spotImage', 12)
 
 /* GET home page. */
 router.get('/', (req, res)=>{
@@ -25,22 +49,33 @@ router.route('/spot')
       res.render('spot', {user: user, successMsg: successMsg, noMessages: !successMsg})
     })
     .post((req, res)=>{
-      let spot = new Spot()
-      spot.status = true
-      spot.name = req.body.name
-      spot.description = req.body.description
-      spot.addedBy = req.user
-      spot.address.lat = req.body.lat
-      spot.address.lng = req.body.lng
+      // console.log(req.files)
 
-      spot.save((err,result)=>{
+      upload(req, res, function(err){
+        console.log(req.body)
+        console.log(req.files)
         if (err) {
-          return err
+          res.send('Error al subir la imagen')
         }
-        console.log(result);
-        req.flash('success', 'Successfully Post')
-        res.redirect('/spot')
-      })
+
+        let spot = new Spot()
+        spot.status = true
+        spot.name = req.body.name
+        spot.description = req.body.description
+        spot.addedBy = req.user
+        spot.address.lat = req.body.lat
+        spot.address.lng = req.body.lng
+        spot.gallery = req.files
+
+        spot.save((err,result)=>{
+          if (err) {
+            console.log(err);
+            return err
+          }
+          req.flash('success', 'Successfully Post')
+          res.redirect('/')
+        })
+      });
     })
 
 // Spot Details
