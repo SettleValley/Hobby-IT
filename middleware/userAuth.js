@@ -10,7 +10,7 @@ const userAuth = {
       next()
     }else {
       req.session.oldUrl = req.url
-      res.redirect('/')
+      res.redirect('/users/signin')
     }
   },
   notLoggedIn: function(req, res, next){
