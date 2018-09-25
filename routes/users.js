@@ -14,13 +14,17 @@ router.use(csrfProtect);
   that make this code more readable
 */
 //Log Out
-router.get('/logout', (req, res)=>{
+router.get('/logout',authLogin.isLoggedIn, (req, res)=>{
   req.logout()
   res.redirect('/')
 })
+/*this router filter when is not log in*/
+router.use('/', authLogin.notLoggedIn, function (req, res, next) {
+    next();
+});
 /* GET users listing. */
 router.route('/signup')
-  .get(authLogin,(req,res)=>{
+  .get((req,res)=>{
     const messages = req.flash('error')
     console.log("index signup")
     res.render('signup',{csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0 })
@@ -35,12 +39,12 @@ router.route('/signup')
       req.session.oldUrl = null;
       res.redirect(Url);
     }else {
-      res.redirect('/');
+      res.redirect('/users/signin');
     }
   })
 
   router.route('/signin')
-    .get(authLogin,(req,res)=>{
+    .get((req,res)=>{
       const messages = req.flash('error')
       console.log("index signin")
       res.render('signin',{csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0 })

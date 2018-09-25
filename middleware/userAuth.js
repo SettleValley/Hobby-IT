@@ -1,12 +1,28 @@
 'use strict'
-var express = require('express');
-var router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-module.exports = function(req, res, next){
-  if (req.isAuthenticated()) {
-    next();
-  }else {
-    req.session.oldUrl = req.url;
-    res.redirect('/users/signin');
+const userAuth = {
+  isLoggedIn: function(req, res, next){
+    if (req.isAuthenticated()) {
+
+      console.log("logeado");
+      next()
+    }else {
+      req.session.oldUrl = req.url
+      res.redirect('/')
+    }
+  },
+  notLoggedIn: function(req, res, next){
+
+    console.log("no logeado");
+    if (!req.isAuthenticated()) {
+        return next()
+      }
+      req.session.oldUrl = req.url
+      res.redirect('/')
   }
-}
+};
+
+
+module.exports = userAuth;

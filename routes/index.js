@@ -42,10 +42,12 @@ router.get('/', (req, res)=>{
         res.render('index', {title: 'Hobby It', user: user, listing:data})
       })
 })
+// Execute middleware under this router ../middleware/userAuth.js
+router.use('/', authLogin.isLoggedIn)
 
 // Spot Routes
 router.route('/spot')
-    .get(authLogin,(req, res)=>{
+    .get((req, res)=>{
       const user = req.user
       var successMsg = req.flash('success')[0];
       res.render('spot', {user: user, successMsg: successMsg, noMessages: !successMsg})
@@ -78,7 +80,7 @@ router.route('/spot')
     })
 
 // Spot Details
-router.get('/detail/:id', authLogin, (req, res)=>{
+router.get('/detail/:id', (req, res)=>{
   const spotId = req.params.id
   Spot.findById(spotId, (err, info)=>{
     if (err) {
