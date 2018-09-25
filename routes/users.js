@@ -3,6 +3,9 @@ var express = require('express');
 var router = express.Router();
 var csrf = require('csurf');
 var passport = require('passport');
+//middleware
+const authLogin = require('../middleware/userAuth')
+
 var csrfProtect = csrf();
 router.use(csrfProtect);
 
@@ -17,7 +20,7 @@ router.get('/logout', (req, res)=>{
 })
 /* GET users listing. */
 router.route('/signup')
-  .get((req,res)=>{
+  .get(authLogin,(req,res)=>{
     const messages = req.flash('error')
     console.log("index signup")
     res.render('signup',{csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0 })
@@ -37,7 +40,7 @@ router.route('/signup')
   })
 
   router.route('/signin')
-    .get((req,res)=>{
+    .get(authLogin,(req,res)=>{
       const messages = req.flash('error')
       console.log("index signin")
       res.render('signin',{csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0 })
@@ -50,9 +53,9 @@ router.route('/signup')
       if (req.session.oldUrl) {
         const Url = req.session.oldUrl;
         req.session.oldUrl = null;
-        res.message(Url);
+        res.redirect(Url);
       }else {
-        res.redirect('/users/signup');
+        res.redirect('/');
       }
     })
 

@@ -4,6 +4,8 @@ const router = express.Router()
 // models
 const Spot = require('../models/spot')
 const multer = require('multer')
+//middleware
+const authLogin = require('../middleware/userAuth')
 //Multer Config
 const storage = multer.diskStorage({
   destination: function(req, file, cb){
@@ -40,10 +42,10 @@ router.get('/', (req, res)=>{
         res.render('index', {title: 'Hobby It', user: user, listing:data})
       })
 })
-// Spot Routes
 
+// Spot Routes
 router.route('/spot')
-    .get((req, res)=>{
+    .get(authLogin,(req, res)=>{
       const user = req.user
       var successMsg = req.flash('success')[0];
       res.render('spot', {user: user, successMsg: successMsg, noMessages: !successMsg})
@@ -76,7 +78,7 @@ router.route('/spot')
     })
 
 // Spot Details
-router.get('/detail/:id', (req, res)=>{
+router.get('/detail/:id', authLogin, (req, res)=>{
   const spotId = req.params.id
   Spot.findById(spotId, (err, info)=>{
     if (err) {
