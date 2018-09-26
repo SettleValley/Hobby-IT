@@ -3,10 +3,11 @@ const express = require('express')
 const router = express.Router()
 // models
 const Spot = require('../models/spot')
-const multer = require('multer')
+const Comment = require('../models/comment')
 //middleware
 const authLogin = require('../middleware/userAuth')
 //Multer Config
+const multer = require('multer')
 const storage = multer.diskStorage({
   destination: function(req, file, cb){
     cb(null, './public/uploads/')
@@ -80,15 +81,38 @@ router.route('/spot')
     })
 
 // Spot Details
-router.get('/detail/:id', (req, res)=>{
-  const spotId = req.params.id
-  Spot.findById(spotId, (err, info)=>{
-    if (err) {
-      res.send('El detalle tiene error' + err)
-    }
-    res.render('detail', {spot: info} )
-  })
-})
+router.route('/detail/:id')
+      .get((req, res)=>{
+        Spot.findById(req.params.id)
+            .populate('addedBy', 'comments')        
+            .exec((err, info)=>{
+              if (err) {
+                res.send(err)
+              }
+              res.render('detail',{spot:info})
+            })
+      })
+      .post((req, res)=>{
+        let comment = new Comment()
+        comment.feed = req.body.feedback
+        comment.userBy = req.id
+        comment.spotBy = req.params.id
+        comment.save((err, result)=>{
+          if (err) {
+            res.send(err)
+          }
+          res.redirect('/detail/' + req.params.id)
+        })
+      })
+// router.get('/detail/:id', (req, res)=>{
+//   const spotId = req.params.id
+//   Spot.findById(spotId, (err, info)=>{
+//     if (err) {
+//       res.send('El detalle tiene error' + err)
+//     }
+//     res.render('detail', {spot: info} )
+//   })
+// })
 
 // router.post('/api/spot', (req, res)=>{
 //   console.log('POST /api/spot/')

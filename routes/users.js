@@ -19,7 +19,7 @@ router.get('/logout',authLogin.isLoggedIn, (req, res)=>{
   res.redirect('/')
 })
 /*this router filter when is not log in*/
-router.use('/', authLogin.notLoggedIn, function (req, res, next) {
+router.use('/users', authLogin.notLoggedIn, function (req, res, next) {
     next();
 });
 /* GET users listing. */
