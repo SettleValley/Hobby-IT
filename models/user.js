@@ -10,6 +10,7 @@ const UserSchema = Schema({
   email: {type: String, required: true},
   password: {type: String, required: true},
   priority: {type: String, enum:['Regular', 'Admin', 'ShopOwner', 'Organizer' ], default: 'Regular'},
+  spots: [{type: Schema.Types.ObjectId, ref: 'Spot'}],
   preference: [{
     type: Schema.Types.ObjectId,
     ref: 'CategorySchema'
@@ -25,12 +26,4 @@ UserSchema.methods.encryptPassword = function(password){
 UserSchema.methods.validPassword  = function(password){
     return bcrypt.compareSync(password, this.password);
 };
-// UserSchema.methods.encryptPassword = (password) =>{
-//   return bcrypt.hashSync(password, bcrypt.genSaltSync(5), null)
-// }
-//
-// UserSchema.methods.validPassword = (password)=>{
-//   return bcrypt.compareSync(password, this.password)
-// }
-
 module.exports = mongoose.model('User', UserSchema)

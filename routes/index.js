@@ -84,7 +84,8 @@ router.route('/spot')
 router.route('/detail/:id')
       .get((req, res)=>{
         Spot.findById(req.params.id)
-            .populate('addedBy', 'comments')        
+            .populate('addedBy')
+            .populate('comments')
             .exec((err, info)=>{
               if (err) {
                 res.send(err)
@@ -95,13 +96,20 @@ router.route('/detail/:id')
       .post((req, res)=>{
         let comment = new Comment()
         comment.feed = req.body.feedback
-        comment.userBy = req.id
+        comment.userBy = req.user._id
         comment.spotBy = req.params.id
         comment.save((err, result)=>{
           if (err) {
             res.send(err)
           }
-          res.redirect('/detail/' + req.params.id)
+          console.log(result._id);
+          Spot.findByIdAndUpdate(result.spotBy,{comments: result.id},{new: true}, function(err){
+                                  if (err) {
+                                    console.log('joder tio');
+                                    return err
+                                  }
+                                  res.redirect('/detail/' + req.params.id)
+                                })
         })
       })
 // router.get('/detail/:id', (req, res)=>{
