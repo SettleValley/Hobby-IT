@@ -18,9 +18,9 @@
 <section>
   <div class="row">
     <div class="col-md-12">
-      {{spot.comments}}
-      {{#each spot.comments}}
-        {{this.feed}}
+
+      {{#each comments}}
+        <p>{{this.feed}}</p>
       {{/each}}
     </div>
   </div>
