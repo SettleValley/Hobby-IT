@@ -13,6 +13,12 @@ p {
 a i {
   color: black; }
 
+h1 {
+  font-size: 4rem !important;
+  color: #485065;
+  letter-spacing: 10px;
+  text-transform: uppercase; }
+
 .border-b {
   border-bottom: 1px solid #ececec; }
 
@@ -27,5 +33,15 @@ a i {
 .map {
   margin-top: 0;
   height: 500px; }
+
+.social-icons-box a {
+  width: 50px;
+  height: 50px;
+  background-color: #080808;
+  padding: 10px;
+  margin: 0 5px;
+  border-radius: 50%; }
+  .social-icons-box a i {
+    color: white; }
 
 /*# sourceMappingURL=style.css.map */
