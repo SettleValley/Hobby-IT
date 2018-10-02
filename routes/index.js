@@ -90,14 +90,8 @@ router.route('/detail/:id')
               if (err) {
                 res.send(err)
               }
-              console.log(info);
-              Comment.find({spotBy: info._id}, (err, comments)=>{
-                if (err) {
-                  console.log("error en buscar comments " + err);
-                }
-                // console.log(comments);
-                res.render('detail',{spot:info, comments: comments})
-              })
+              console.log(info)
+              res.render('detail',{spot:info})
             })
       })
       .post((req, res)=>{
@@ -109,8 +103,15 @@ router.route('/detail/:id')
           if (err) {
             res.send(err)
           }
-          console.log(result._id);
-          res.redirect('/detail/' + req.params.id)
+          Spot.findById(req.params.id, (err, spot)=>{
+            spot.comments.push(result._id)
+            spot.save((err, kash)=>{
+              if (err) {
+                return err
+              }
+              res.redirect('/detail/' + req.params.id)
+            })
+          })
         })
       })
 // router.get('/detail/:id', (req, res)=>{
