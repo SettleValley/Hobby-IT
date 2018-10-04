@@ -180,7 +180,7 @@ $(function(){
               infowindow.open(map,marker);
             });
 
-            infowindow.open(map,marker);
+            // infowindow.open(map,marker);
 
           // if (info == "1"){
           // }else if (info == "2"){

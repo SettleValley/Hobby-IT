@@ -15,32 +15,41 @@
   </div>
 </section>
 
-<!-- Mapa -->
-<div class="box-Map-Card">
-  <div class="card text-center">
-    <div class="card-header">
-      <form class="form-inline my-2 my-lg-0">
-        <div class="input-group col-md-12">
-            <input class="form-control py-2 border-right-0 border" type="search" value="search" id="example-search-input">
-            <span class="input-group-append">
-                <button class="btn btn-outline-secondary border-left-0 border" type="button">
-                    <i class="fa fa-search"></i>
-                </button>
-              </span>
+<div class="row pt-5">
+  <div class="col-md-4">
+    {{>spot/map}}
+  </div>
+  <div class="col-md-4">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card border-light mb-3">
+          <div class="card-header border-bottom-0">
+            <span class="badge badge-secondary">Sport</span>
+            <span class="text-right float-right">11/sept/2018</span>
+
+          </div>
+          <div class="card-body bg-light text-center">
+            <h5 class="card-title">{{spot.name}}</h5>
+            <p class="card-text"><small class="text-muted">Panama</small></p>
+            <div class="row">
+              <div class="col">
+                <div class="social-icons-box">
+                  <a href="#"><i class="fas fa-walking"></i></a>
+                  <a href="#"><i class="fas fa-map-marked-alt"></i></a>
+                  <a href="#"><i class="fas fa-location-arrow"></i></a>
+                  <a href="#"><i class="fas fa-wifi"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </form>
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">Special title treatment</h5>
-      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-    <div class="card-footer text-muted">
-      2 days ago
+      </div>
     </div>
   </div>
+  <div class="col-md-4">
+
+  </div>
 </div>
-<!-- end Mapa -->
 
 <section class="">
   <div class="">
