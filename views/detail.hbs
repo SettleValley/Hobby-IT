@@ -5,14 +5,14 @@
     </div>
     <div class="col-md-4">
       <div class="col-md-12">
-        <div class="card border-light mb-3">
+        <div class="card border-light mb-5">
           <div class="card-header border-bottom-0">
             <span class="badge badge-secondary">Sport</span>
             <span class="text-right float-right">11/sept/2018</span
           </div>
           <div class="card-body bg-light text-center">
+            <p class="card-text city_tag"><small class="text-muted">Panama</small></p>
             <h5 class="card-title">{{spot.name}}</h5>
-            <p class="card-text"><small class="text-muted">Panama</small></p>
             <div class="row">
               <div class="col">
                 <div class="social-icons-box">
@@ -27,16 +27,17 @@
         </div>
       </div>
       <h6>Description</h6>
-      <div class="text-left descript_card">
-        <div class="card border-light mb-3 text-truncate">
+      <hr>
+      <div class="text-left descript_card mb-5">
+        <div class="card border-light mb-3">
           <div class="card-body bg-light">
-            <p class="d-inline-block text-truncate descript_hover w-100">{{spot.description}}</p>
+            <p class="w-100 text-justify">{{spot.description}}</p>
           </div>
         </div>
       </div>
       <h6>Amenities</h6>
-
-      <div class="row">
+      <hr>
+      <div class="row mb-5">
           {{> spot/amenities }}
       </div>
     </div>
@@ -62,14 +63,33 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <h2>Feedbacks</h2>
-        <div class="card border-light mb-3">
-          <div class="card-body bg-light">
-            {{#each spot.comments}}
-              <p>{{this.feed}}</p>
-            {{/each}}
+        <div class="accordion" id="accordionExample">
+          <div class="card border-light mb-3">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn btn-link second_title" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Comments Box
+                </button>
+              </h5>
+            </div>
+
+            <div id="collapseOne" class="collapse show mt-2" aria-labelledby="headingOne" data-parent="#accordionExample">
+              <div class="card-body bg-light">
+                {{#each spot.comments}}
+                  <div class="card border-light mb-2">
+                    <div class="card-body bg-white coments_box">
+                      <p class="card-text"><small class="text-muted">- {{this.created_Date}}</small></p>
+                      <p><i class="fas fa-book-reader"></i> {{this.feed}}</p>
+                    </div>
+                  </div>
+                {{/each}}
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+      <div class="col-md-12">
+        {{> spot/comment}}
       </div>
     </div>
   </div>
