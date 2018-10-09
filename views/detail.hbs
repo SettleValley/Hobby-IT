@@ -4,104 +4,73 @@
       {{>spot/map}}
     </div>
     <div class="col-md-4">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card border-light mb-3">
-            <div class="card-header border-bottom-0">
-              <span class="badge badge-secondary">Sport</span>
-              <span class="text-right float-right">11/sept/2018</span>
-
-            </div>
-            <div class="card-body bg-light text-center">
-              <h5 class="card-title">{{spot.name}}</h5>
-              <p class="card-text"><small class="text-muted">Panama</small></p>
-              <div class="row">
-                <div class="col">
-                  <div class="social-icons-box">
-                    <a href="#"><i class="fas fa-walking"></i></a>
-                    <a href="#"><i class="fas fa-map-marked-alt"></i></a>
-                    <a href="#"><i class="fas fa-location-arrow"></i></a>
-                    <a href="#"><i class="fas fa-wifi"></i></a>
-                  </div>
+      <div class="col-md-12">
+        <div class="card border-light mb-3">
+          <div class="card-header border-bottom-0">
+            <span class="badge badge-secondary">Sport</span>
+            <span class="text-right float-right">11/sept/2018</span
+          </div>
+          <div class="card-body bg-light text-center">
+            <h5 class="card-title">{{spot.name}}</h5>
+            <p class="card-text"><small class="text-muted">Panama</small></p>
+            <div class="row">
+              <div class="col">
+                <div class="social-icons-box">
+                  <a href="#"><i class="fas fa-walking"></i></a>
+                  <a href="#"><i class="fas fa-map-marked-alt"></i></a>
+                  <a href="#"><i class="fas fa-location-arrow"></i></a>
+                  <a href="#"><i class="fas fa-wifi"></i></a>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <h6>Amenities</h6>
-      <hr>
-      <div class="row">
-        <!-- <div class="clearfix"></div> -->
-        <div class="col-md-4">
-          <div class="card border-light mb-3">
-            <div class="card-body bg-light text-center amenities">
-              <i class="fas fa-wifi"></i>
-              <span>Wifi Adatable</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card border-light mb-3">
-            <div class="card-body bg-light text-center amenities">
-              <i class="fas fa-key"></i>
-              <span>Security</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card border-light mb-3">
-            <div class="card-body bg-light text-center amenities">
-              <i class="fas fa-bus-alt"></i>
-              <span>Transport</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card border-light mb-3">
-            <div class="card-body bg-light text-center amenities">
-              <i class="fas fa-exclamation-triangle"></i>
-              <span>Alert Agent</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card border-light mb-3">
-            <div class="card-body bg-light text-center amenities">
-              <i class="fas fa-tint"></i>
-              <span>Drink Bottle</span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card border-light mb-3">
-            <div class="card-body bg-light text-center amenities">
-              <i class="fas fa-utensils"></i>
-              <span>Food</span>
-            </div>
+      <h6>Description</h6>
+      <div class="text-left descript_card">
+        <div class="card border-light mb-3 text-truncate">
+          <div class="card-body bg-light">
+            <p class="d-inline-block text-truncate descript_hover w-100">{{spot.description}}</p>
           </div>
         </div>
       </div>
+      <h6>Amenities</h6>
+
+      <div class="row">
+          {{> spot/amenities }}
+      </div>
     </div>
-    <div class="col-md-4">
-      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner">
-            {{#each spot.gallery as |image| }}
-              <div class="carousel-item {{#if @index}}active{{/if}}">
-                <img class="d-block w-100" src="/uploads/{{image.filename}}" alt="First slide">
-                <!-- <img class="d-block w-100" src="http://via.placeholder.com/720x480?text=HobbyIt" alt="First slide"> -->
-              </div>
+  </div>
+  <div class="col-md-4">
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        {{#each spot.gallery as |image| }}
+          <div class="carousel-item {{#if @index}}active{{/if}}">
+            <img class="d-block w-100" src="/uploads/{{image.filename}}" alt="First slide">
+            <!-- <img class="d-block w-100" src="http://via.placeholder.com/720x480?text=HobbyIt" alt="First slide"> -->
+          </div>
+        {{/each}}
+      </div>
+      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Feedbacks</h2>
+        <div class="card border-light mb-3">
+          <div class="card-body bg-light">
+            {{#each spot.comments}}
+              <p>{{this.feed}}</p>
             {{/each}}
           </div>
-          <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-          </a>
-          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-          </a>
         </div>
+      </div>
     </div>
   </div>
 </div>
