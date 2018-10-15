@@ -1,10 +1,9 @@
 var map;
 $(function(){
-  var lat = $('#map').attr('lat');
-  var lng = $('#map').attr('lng');
-  var title = $('#map').attr('title');
-  var geocoder = null;
-
+    var lat = $('#map').attr('lat') || -34.397;
+    var lng = $('#map').attr('lng') || 150.644;
+    var title = $('#map').attr('title');
+console.log(lat);
   initMap(12, lat, lng, "", "");
   function initMap(valZoom, lat, lon, valTitle, info) {
     geocoder =  new google.maps.Geocoder();
@@ -211,15 +210,35 @@ $(function(){
               infowindow.open(map,marker);
             });
 
-            // infowindow.open(map,marker);
+            // Geolocation
+            var infoContent = new google.maps.InfoWindow;
+          if(navigator.geolocation){
+              navigator.geolocation.getCurrentPosition(function (position) {
+                  var pos = {
+                      lat: position.coords.latitude,
+                      lng: position.coords.longitude
+                  };
 
-          // if (info == "1"){
-          // }else if (info == "2"){
-          //   infowindow2.open(map,marker2);
-          // }else if (info == "3"){
-          //   infowindow3.open(map,marker3);
-          // }else if (info == "4"){
-          //   infowindow4.open(map,marker4);
-          // }
+                  infoContent.setPosition(pos);
+                  infoContent.setContent('Location found.');
+                  infoContent.open(map);
+                  map.setCenter(pos);
+              }, function () {
+                  handleLocationError(true, infoContent, map.getCenter());
+              });
+          }else{
+              handleLocationError(false, infoContent, map.getCenter());
+          }
+
+
   }
+    function handleLocationError(browserHasGeolocation, infoContent, pos) {
+        infoContent.setPosition(pos);
+        infoContent.setContent(browserHasGeolocation ?
+            'Error: The Geolocation service failed.' :
+            'Error: Your browser doesn\'t support geolocation.');
+        infoContent.open(map);
+    }
+//end init map
+
 });
