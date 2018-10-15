@@ -8,7 +8,8 @@ const SpotSchema = Schema({
   name: {type: String, required: true},
   gallery:[{}],
   description: {type: String, required: true},
-  comments: {type: Schema.Types.ObjectId, ref: 'Comment'},
+  categories: [{type: Schema.Types.ObjectId, ref: 'Category'}],
+  comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
   addedBy:{type: Schema.Types.ObjectId, ref: 'User'},
   address:{
     lat: String,
