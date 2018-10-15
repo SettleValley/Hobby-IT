@@ -14,7 +14,8 @@ const SpotSchema = Schema({
   address:{
     lat: String,
     lng: String
-  }
+  },
+  created_Date: {type:Date, default: Date.now}
   // ,
   // categories: [{
   //   type: Schema.Types.ObjectId,

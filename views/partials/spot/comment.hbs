@@ -1,27 +1,15 @@
 <section>
-    <form action="/detail/{{spot.id}}" method="post">
-      <div class="form-group row">
-        <label for="staticEmail" class="col-sm-2 col-md-6 col-form-label">Email</label>
-        <div class="col-sm-12 col-md-6">
-          <input name="user" type="text" readonly class="form-control-plaintext" id="staticEmail" value="{{spot.addedBy.email}}">
+  <div class="card border-light mb-5">
+    <div class="card-header border-bottom-0">
+      <form action="/detail/{{spot.id}}" method="post">
+        <div class="form-group row">
+          <label for="inputPassword" class="col-sm-2 col-md-12 col-form-label">Feedback</label>
+          <div class="col-sm-12 col-md-12">
+            <textarea name="feedback" class="form-control" id="exampleFormControlTextarea1" rows="2"></textarea>
+          </div>
         </div>
-      </div>
-      <div class="form-group row">
-        <label for="inputPassword" class="col-sm-2 col-md-12 col-form-label">Feedback</label>
-        <div class="col-sm-12 col-md-12">
-          <textarea name="feedback" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</section>
-<section>
-  <div class="row">
-    <div class="col-md-12">
-      <!-- {{spot.comments}} -->
-      {{#each spot.comments}}
-        <p>{{this.feed}}</p>
-      {{/each}}
+        <button type="submit" class="btn btn-secondary">Send</button>
+      </form>
     </div>
   </div>
 </section>
