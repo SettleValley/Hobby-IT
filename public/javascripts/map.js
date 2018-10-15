@@ -218,10 +218,10 @@ $(function(){
                       lng: position.coords.longitude
                   };
                   infoContent.setPosition(pos);
-
                   infoContent.setContent('your right now');
                   infoContent.open(map);
                   map.setCenter(pos);
+                  addInputLocation(pos.lat, pos.lng);
               }, function () {
                   handleLocationError(true, infoContent, map.getCenter());
               });
@@ -267,7 +267,7 @@ $(function(){
           $('input[name=lng]').val(lng);
       }
       //end pin
-      var MarkerFound = [];
+      var marker = [];
       // Listen for the event fired when the user selects a prediction and retrieve
       // more details for that place.
       searchBox.addListener('places_changed', function(){
@@ -277,10 +277,10 @@ $(function(){
               return;
           }
           // Clear out the old markers.
-          MarkerFound.forEach(function (marker) {
+          marker.forEach(function (marker) {
               marker.setMap(null);
           });
-          MarkerFound = [];
+          marker = [];
           // For each place, get the icon, name and location.
           var bounds = new google.maps.LatLngBounds();
           places.forEach(function (place){
@@ -296,7 +296,7 @@ $(function(){
                   scaledSize: new google.maps.Size(25, 25)
               };
               // Create a marker for each place.
-              MarkerFound.push(new google.maps.Marker({
+              marker.push(new google.maps.Marker({
                   map: map,
                   icon: icon,
                   title: place.name,
@@ -308,6 +308,7 @@ $(function(){
               } else {
                   bounds.extend(place.geometry.location);
               }
+
           });
           map.fitBounds(bounds);
       });
