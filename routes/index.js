@@ -57,7 +57,6 @@ router.route('/spot')
     .post((req, res)=>{
       // console.log(req.files)
       upload(req, res, function(err){
-        console.log(req.files)
         if (err) {
           res.send('Error al subir la imagen')
         }
@@ -69,23 +68,29 @@ router.route('/spot')
         spot.address.lat = req.body.lat
         spot.address.lng = req.body.lng
         spot.gallery = req.files
-
         spot.save((err,result)=>{
           if (err) {
             console.log(err);
             return err
           }
-          let category = new Category()
-          category.spotBy = result._id
-          category.userBy = result.addedBy
-          category.title = req.body.category
-          category.save((err, catResult)=>{
-              if (err) {
-                return err
-              }
-              req.flash('success', 'Successfully Post')
-              res.redirect('/spot')
-          })
+          req.flash('success', 'Successfully Post')
+          res.redirect('/detail/' + spot.id)
+          // Spot.findById(spot.id, (err, data)=>{
+          //   if (err) {
+          //     res.send(err)
+          //   }
+          //
+          //   let category = new Category()
+          //   category.spotBy = result._id
+          //   category.userBy = result.addedBy
+          //   category.title = req.body.category
+          //   category.save((err, result)=>{
+          //     if (err) {
+          //       res.send(err)
+          //     }
+          //
+          //   })
+          // })
 
         })
       });
