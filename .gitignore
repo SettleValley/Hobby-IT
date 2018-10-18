@@ -31,3 +31,9 @@ npm-debug.log
 
 # Image Uploads
 public/uploads/*
+
+# Yml of CI of gitlab
+.gitlab-ci.yml
+
+# Code
+.code

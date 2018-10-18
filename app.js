@@ -12,6 +12,7 @@ const users = require('./routes/users')
 
 //view engine
 const hbs = require('express-handlebars')
+const hbsHelpers = require('./helpers/handlebars')(hbs)
 //session user
 const session = require('express-session')
 //session conect
@@ -27,13 +28,10 @@ const mongoose = require('mongoose');
 const app = express()
 
 require('./config/passport')
-
+//helpers execute handlebars
+// app.engine('handlebars', hbsHelpers.engine);
 // view engine setup
-app.engine('hbs', hbs({
-    extname: 'hbs', defaultLayout: 'base',
-    partialsDir:__dirname + '/views/partials',
-    layoutsDir: __dirname + '/views/layouts'
- }));
+app.engine('hbs', hbsHelpers.engine);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
