@@ -1,8 +1,9 @@
 var register = function(Handlebars) {
   var helpers = {
     // put all of your helpers inside this object
-    foo: function(){
-        return "FOO";
+    NameSlice: function(name){
+        var cut = name.slice(0,2);
+        return cut;
     },
     bar: function(){
         return "BAR";
