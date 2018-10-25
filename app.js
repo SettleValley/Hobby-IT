@@ -31,7 +31,15 @@ require('./config/passport')
 //helpers execute handlebars
 // app.engine('handlebars', hbsHelpers.engine);
 // view engine setup
-app.engine('hbs', hbsHelpers.engine);
+// view engine setup
+app.engine('hbs', hbs({
+    extname: 'hbs',
+    defaultLayout: 'base',
+    helpers: require('./public/javascripts/helpers.js').helpers,
+    partialsDir:__dirname + '/views/partials',
+    layoutsDir: __dirname + '/views/layouts'
+ }));
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
