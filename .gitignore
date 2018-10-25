@@ -37,3 +37,6 @@ public/uploads/*
 
 # Code
 .code
+
+# Bower dependecies
+public/bower_componentes/*
