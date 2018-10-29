@@ -6,8 +6,7 @@
     "node": ">=6.0.0"
   },
   "scripts": {
-    "start": "node ./bin/www",
-    "test": "node ./test/test-pages"
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "babel-eslint": "^10.0.1",
@@ -41,11 +40,17 @@
   "devDependencies": {
     "bower": "^1.8.4",
     "chai": "^4.2.0",
-    "git-guppy": "^2.1.0",
+    "eslint-plugin-babel": "^5.2.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-standard": "^4.0.0",
+    "ghooks": "^2.0.4",
     "gulp": "^3.9.1",
     "gulp-eslint": "^5.0.0",
+    "gulp-livereload": "^4.0.0",
     "gulp-mocha": "^6.0.0",
-    "guppy-pre-push": "^0.2.1",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-notify": "^3.2.0",
+    "gulp-stylus": "^2.7.0",
     "mocha": "^5.2.0",
     "nodemon": "^1.18.4",
     "request": "^2.88.0",

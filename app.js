@@ -1,33 +1,33 @@
-const express = require('express')
-const path = require('path')
-const favicon = require('serve-favicon')
-const logger = require('morgan')
-const cookieParser = require('cookie-parser')
-const bodyParser = require('body-parser')
-const sassMiddleware = require('node-sass-middleware')
+import express from 'express';
+import path  from 'path';
+import favicon from 'serve-favicon';
+import logger  from 'morgan';
+import cookieParser  from 'cookie-parser';
+import bodyParser  from 'body-parser';
+import sassMiddleware  from 'node-sass-middleware';
 
-const index = require('./routes/index')
-const users = require('./routes/users')
+import index from './routes/index';
+import users from './routes/users';
 
 //view engine
-const hbs = require('express-handlebars')
-const hbsMinify = require('./helpers/handlebars')
-const hbsHelpers = require('./public/javascripts/helpers').helpers
+import hbs from 'express-handlebars';
+import hbsMinify from './helpers/handlebars';
+import { helpers } from './public/javascripts/helpers';
 //session user
-const session = require('express-session')
+import session from 'express-session';
 //session conect
-const MongoStore = require('connect-mongo')(session);
+//import {session} from 'connect-mongo';
 //passport
-const passport = require('passport');
-const flash = require('connect-flash');
-const validator = require('express-validator')
+import passport from 'passport';
+import flash from 'connect-flash';
+import validator from 'express-validator';
 
 //db
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const app = express()
+const app = express();
 
-require('./config/passport')
+import './config/passport';
 //helpers execute handlebars
 // view engine setup
 // view engine setup
@@ -36,7 +36,7 @@ app.engine('.hbs', hbs({
     defaultLayout: 'base',
     partialsDir:__dirname + '/views/partials',
     layoutsDir: __dirname + '/views/layouts',
-    helpers: hbsHelpers
+    helpers: helpers
  }));
 
 
@@ -57,7 +57,7 @@ app.use(session({
   secret: 'mysupersecret',
   resave: false,
   saveUninitialized: false,
-  store: new MongoStore({mongooseConnection: mongoose.connection}),
+
   cookie: {
     maxAge: 180 * 60 * 1000
   }
@@ -106,4 +106,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+export default app;

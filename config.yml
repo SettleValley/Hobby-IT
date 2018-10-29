@@ -1,0 +1,37 @@
+---
+production: &default
+  serverPort: 3000
+  baseUrl: http://wwww.hobbit.com
+  views:
+    engine: .hbs
+    extension: .hbs
+    layout: base
+  html:
+    minify: true
+    css:
+      stylusPrecompile: true
+      compress: true
+  app:
+    default: WebApp
+  languages:
+    default: en
+    list: [en, es]
+
+stage: &stage
+  <<: *default
+  baseUrl: http://stage.hobbit.com
+latest: &latest
+  <<: *stage
+  baseUrl: http://latest.hobbit.com
+
+development:
+  <<: *latest
+  baseUrl: http://local.hobbit.com
+  html:
+    minify: false
+    css:
+      stylusPrecompile: false
+      compress: false
+
+
+
