@@ -1,4 +1,3 @@
-'use strict'
 const express = require('express')
 const path = require('path')
 const favicon = require('serve-favicon')
@@ -12,7 +11,8 @@ const users = require('./routes/users')
 
 //view engine
 const hbs = require('express-handlebars')
-const hbsHelpers = require('./helpers/handlebars')(hbs)
+const hbsMinify = require('./helpers/handlebars')
+const hbsHelpers = require('./public/javascripts/helpers').helpers
 //session user
 const session = require('express-session')
 //session conect
@@ -29,22 +29,21 @@ const app = express()
 
 require('./config/passport')
 //helpers execute handlebars
-// app.engine('handlebars', hbsHelpers.engine);
 // view engine setup
 // view engine setup
-app.engine('hbs', hbs({
-    extname: 'hbs',
+app.engine('.hbs', hbs({
+    extname: '.hbs',
     defaultLayout: 'base',
-    helpers: require('./public/javascripts/helpers.js').helpers,
     partialsDir:__dirname + '/views/partials',
-    layoutsDir: __dirname + '/views/layouts'
+    layoutsDir: __dirname + '/views/layouts',
+    helpers: hbsHelpers
  }));
 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
-app.set('view options', { layout: 'base' });
+app.set('view engine', '.hbs');
+//app.set('view options', { layout: 'base' });
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

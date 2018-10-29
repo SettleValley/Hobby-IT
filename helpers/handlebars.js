@@ -1,19 +1,14 @@
-function hbsHelpers(hbs) {
-  return hbs.create({
-    extname: 'hbs',
-    defaultLayout: 'base',
-    partialsDir:__dirname + '/views/partials',
-    layoutsDir: __dirname + '/views/layouts',
-    helpers: { // This was missing
-      splitNameUser: function() {
-        console.log('reading it');
-        return "hola";
-      }
+'use strict';
+var htmlMinify = require('html-minifier').minify;
 
-      // More helpers...
-    }
-
-  });
+function minify(content){
+    return htmlMinify(content.fn(this),{
+        removeComments: true,
+        collapseWhitespace: true,
+        minifyJS: true
+    });
 }
 
-module.exports = hbsHelpers;
+module.exports = {
+    minify: minify,
+};
