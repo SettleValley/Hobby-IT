@@ -1,4 +1,4 @@
-import gulp from "gulp";
+const gulp = require('gulp');
 
 // import task
 gulp.task('lint', require('./gulp/eslint'));

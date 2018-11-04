@@ -1,49 +1,49 @@
-import express from 'express';
-import path  from 'path';
-import favicon from 'serve-favicon';
-import logger  from 'morgan';
-import cookieParser  from 'cookie-parser';
-import bodyParser  from 'body-parser';
-import sassMiddleware  from 'node-sass-middleware';
+'use strict'
+const express = require('express')
+const path = require('path')
+const favicon = require('serve-favicon')
+const logger = require('morgan')
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
+const sassMiddleware = require('node-sass-middleware')
 
-import index from './routes/index';
-import users from './routes/users';
+const index = require('./routes/index')
+const users = require('./routes/users')
 
 //view engine
-import hbs from 'express-handlebars';
-import hbsMinify from './helpers/handlebars';
-import { helpers } from './public/javascripts/helpers';
+const hbs = require('express-handlebars')
 //session user
-import session from 'express-session';
+const session = require('express-session')
 //session conect
-//import {session} from 'connect-mongo';
+const MongoStore = require('connect-mongo')(session);
 //passport
-import passport from 'passport';
-import flash from 'connect-flash';
-import validator from 'express-validator';
+const passport = require('passport');
+const flash = require('connect-flash');
+const validator = require('express-validator')
 
 //db
-import mongoose from 'mongoose';
+const mongoose = require('mongoose');
 
-const app = express();
+const app = express()
 
-import './config/passport';
+require('./config/passport')
 //helpers execute handlebars
+// app.engine('handlebars', hbsHelpers.engine);
 // view engine setup
 // view engine setup
-app.engine('.hbs', hbs({
-    extname: '.hbs',
+app.engine('hbs', hbs({
+    extname: 'hbs',
     defaultLayout: 'base',
-    partialsDir:__dirname + '/views/partials',
-    layoutsDir: __dirname + '/views/layouts',
-    helpers: helpers
- }));
+    helpers: require('./public/javascripts/helpers.js').helpers,
+    partialsDir: __dirname + '/views/partials',
+    layoutsDir: __dirname + '/views/layouts'
+}));
 
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', '.hbs');
-//app.set('view options', { layout: 'base' });
+app.set('view engine', 'hbs');
+app.set('view options', { layout: 'base' });
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -54,13 +54,13 @@ app.use(validator());
 app.use(cookieParser());
 //session init
 app.use(session({
-  secret: 'mysupersecret',
-  resave: false,
-  saveUninitialized: false,
-
-  cookie: {
-    maxAge: 180 * 60 * 1000
-  }
+    secret: 'mysupersecret',
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    cookie: {
+        maxAge: 180 * 60 * 1000
+    }
 }));
 //flash init
 app.use(flash());
@@ -69,41 +69,41 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(sassMiddleware({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public'),
-  indentedSyntax: true, // true = .sass and false = .scss
-  sourceMap: true
+    src: path.join(__dirname, 'public'),
+    dest: path.join(__dirname, 'public'),
+    indentedSyntax: true, // true = .sass and false = .scss
+    sourceMap: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 /* global variable to use in routes or from the views*/
-app.use(function(req, res, next){
-  res.locals.login = req.isAuthenticated();
-  console.log(res.session);
-  console.log(req.isAuthenticated());
-  res.locals.session = req.session;
-  next();
+app.use(function (req, res, next) {
+    res.locals.login = req.isAuthenticated();
+    console.log(res.session);
+    console.log(req.isAuthenticated());
+    res.locals.session = req.session;
+    next();
 });
 
 app.use('/users', users);
 app.use('/', index);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+app.use(function (req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use(function (err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
 });
 
-export default app;
+module.exports = app;
