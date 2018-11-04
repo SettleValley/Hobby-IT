@@ -1,7 +1,15 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
   <div class="container">
     <div class="row w-100">
       <a class="navbar-brand font-weight-bold text-uppercase" href="/">Hobby It</a>
+      <form class="form-inline">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
+          </div>
+        </div>
+      </form>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -17,9 +25,24 @@
             <a class="nav-link" href="/spot">Spot</a>
           </li>
           {{#if login}}
-            <li class="nav-item">
-              <a class="nav-link" href="/users/logout">Log Out</a>
-            </li>
+          <li class="nav-item">
+            <button type="button" class="btn btn-outline-secondary">
+              <i class="far fa-bell"></i>
+            </button>
+          </li>
+          <li class="nav-item px-2">
+            <div class="dropdown">
+              <button class="btn btn-outline-secondary dropdown-toggle text-uppercase font-weight-light" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{NameSlice user.name}}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Profile</a>
+                <a class="dropdown-item" href="#">My spots</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/users/logout">Log Out</a>
+              </div>
+            </div>
+          </li>
             {{else}}
             <li class="nav-item">
               <a class="nav-link" href="/users/signin">Log In</a>
