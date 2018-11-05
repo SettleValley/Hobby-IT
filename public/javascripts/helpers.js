@@ -2,6 +2,7 @@ var register = function(Handlebars) {
   var helpers = {
     // put all of your helpers inside this object
     NameSlice: function(name){
+        if (!name || !name.length){return;}
         var cut = name.slice(0,2);
         return cut;
     },
@@ -23,4 +24,4 @@ var register = function(Handlebars) {
 };
 
 module.exports.register = register;
-module.exports.helpers = register(null);   
+module.exports.helpers = register(null);

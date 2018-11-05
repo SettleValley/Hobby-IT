@@ -25,18 +25,16 @@ h5 {
   letter-spacing: 4px;
   color: #3e3e3e !important; }
 
-h6 {
-  text-transform: uppercase;
-  font-size: 14px !important;
-  color: #5e5e5e !important;
-  letter-spacing: 5px; }
-
 .second_title {
   text-transform: uppercase;
   font-size: 14px !important;
   color: #5e5e5e !important;
   letter-spacing: 5px;
   font-weight: 500 !important; }
+
+.hr-25 {
+  width: 25%;
+  margin: 0.5rem 0; }
 
 .border-b {
   border-bottom: 1px solid #ececec; }
@@ -80,5 +78,27 @@ h6 {
 
 .city_tag {
   margin-bottom: 5px; }
+
+.circle_letter {
+  text-align: center;
+  height: 150px;
+  padding: 15%;
+  border: 1px solid #dadada;
+  margin: 0 auto;
+  border-radius: 50%;
+  width: 150px;
+  background-color: whitesmoke;
+  border-collapse: separate;
+  border-spacing: 35px 50px; }
+  .circle_letter h2 {
+    line-height: 3em;
+    text-transform: uppercase;
+    color: #6a6a6a; }
+
+.tinyTitle {
+  text-transform: uppercase;
+  font-size: 14px !important;
+  color: #5e5e5e !important;
+  letter-spacing: 2px; }
 
 /*# sourceMappingURL=style.css.map */

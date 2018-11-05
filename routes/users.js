@@ -43,26 +43,31 @@ router.route('/signup')
     }
   })
 
-  router.route('/signin')
-    .get((req,res)=>{
-      const messages = req.flash('error')
-      console.log("index signin")
-      res.render('signin',{csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0 })
+router.route('/signin')
+.get((req,res)=>{
+    const messages = req.flash('error')
+    res.render('signin',{csrfToken: req.csrfToken(), messages: messages, hasErrors: messages.length > 0 })
+})
+.post(passport.authenticate('local.signin', {
+    failureRedirect: '/users/signin',
+    failureFlash: true
+}),(req, res)=>{
+    if (req.session.oldUrl) {
+    const Url = req.session.oldUrl;
+    req.session.oldUrl = null;
+    res.redirect(Url);
+    }else {
+    res.redirect('/');
+    }
+})
+router.route('/profile')
+    .get((req, res)=>{
+        var user = req.user
+        console.log(user);
+        res.render('profileDetail', { title: 'Profile', user:user})
     })
-    .post(passport.authenticate('local.signin', {
-      failureRedirect: '/users/signin',
-      failureFlash: true
-    }),(req, res)=>{
-      console.log("entrando ps")
-      if (req.session.oldUrl) {
-        const Url = req.session.oldUrl;
-        req.session.oldUrl = null;
-        res.redirect(Url);
-      }else {
-        res.redirect('/');
-      }
-    })
-
+    .post()
+    .put()
 
 
 module.exports = router;
