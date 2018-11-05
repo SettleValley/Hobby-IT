@@ -4,7 +4,7 @@
       <a class="navbar-brand font-weight-bold text-uppercase" href="/">Hobby It</a>
       <form class="form-inline">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+          <input type="text" class="form-control" placeholder="Search..." aria-label="Username" aria-describedby="basic-addon1">
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
           </div>
@@ -19,25 +19,25 @@
             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link" href="#">Categories</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/spot">Spot</a>
+            <a class="nav-link" href="">Discover</a>
           </li>
           {{#if login}}
-          <li class="nav-item">
-            <button type="button" class="btn btn-outline-secondary">
+          <li class="nav-item" style="line-height: 35px;">
+            <button type="button" class="btn btn-sm btn-outline-secondary">
               <i class="far fa-bell"></i>
             </button>
           </li>
-          <li class="nav-item px-2">
+          <li class="nav-item px-2" style="line-height: 35px;">
             <div class="dropdown">
-              <button class="btn btn-outline-secondary dropdown-toggle text-uppercase font-weight-light" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <button class="btn btn-sm btn-outline-secondary dropdown-toggle text-uppercase font-weight-light" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{NameSlice user.name}}
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Profile</a>
-                <a class="dropdown-item" href="#">My spots</a>
+                <a class="dropdown-item" href="/users/profile">Profile</a>
+                <a class="dropdown-item" href="/spot">Add Spot</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="/users/logout">Log Out</a>
               </div>
