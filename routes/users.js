@@ -69,5 +69,4 @@ router.route('/profile')
     .post()
     .put()
 
-
 module.exports = router;
