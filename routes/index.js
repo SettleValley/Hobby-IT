@@ -75,23 +75,6 @@ router.route('/spot')
           }
           req.flash('success', 'Successfully Post')
           res.redirect('/detail/' + spot.id)
-          // Spot.findById(spot.id, (err, data)=>{
-          //   if (err) {
-          //     res.send(err)
-          //   }
-          //
-          //   let category = new Category()
-          //   category.spotBy = result._id
-          //   category.userBy = result.addedBy
-          //   category.title = req.body.category
-          //   category.save((err, result)=>{
-          //     if (err) {
-          //       res.send(err)
-          //     }
-          //
-          //   })
-          // })
-
         })
       });
     })
@@ -130,40 +113,56 @@ router.route('/detail/:id')
           })
         })
       })
-// router.get('/detail/:id', (req, res)=>{
-//   const spotId = req.params.id
-//   Spot.findById(spotId, (err, info)=>{
-//     if (err) {
-//       res.send('El detalle tiene error' + err)
-//     }
-//     res.render('detail', {spot: info} )
-//   })
-// })
+//Owner Spot Managment
+router.route('/spotowner')
+    .get((req, res) => {
+        const user = req.user
 
-// router.post('/api/spot', (req, res)=>{
-//   console.log('POST /api/spot/')
-//   console.log(req.body)
-//
-//   let spot = Spot()
-//   spot.title = req.body.title
-//   spot.picture = req.body.picture
-//   spot.description = req.body.description
-//   spot.ranking = req.body.ranking
-//   spot.category = req.body.category
-//
-//   spot.save((err, data)=>{
-//     if (err) res.status(500).send({message: `Error ${err}`})
-//     res.status(200).send({spot: data})
-//   })
-// })
-//
-// router.get('/api/spot', (req, res)=>{
-//   Spot.find({}, (err, data)=>{
-//     if(err) return res.status(500).send({message: "Error en la base de datos"})
-//     if(!data) return res.status(404).send({message: `No se encuentra`})
-//
-//     res.status(200).send({data})
-//   })
-// })
+        Spot.find({addedBy: user._id})
+            .exec((err, data) => {
+                if (err) {
+                    res.send('Error en el find del Spot')
+                }
+                res.render('SpotByUser', { title: 'Spot Owner Managment', user: user, listing: data })
+            })
+    })
+router.route('/remove/:id')
+    .get((req, res) => {
+        const id = req.params._id
+        console.log('gattt demen')
+        console.log('este es el id: ' + id)
+        Spot.findOneAndDelete({_id: req.params.id }, (err, doc) => {
+            if (err) {
+                console.log('hay un erro en el delete perro')
+                 res.redirect('/')
+                }else{
+                console.log(doc)
+                res.redirect('/spotowner')
+                }
 
+        })
+    })
+/*router.route('/spotowner/:id')
+    .get((req, res)=>{
+        const user = req.user
+
+        Spot.find({ addedBy: user._id })
+            .exec((err, data) => {
+                if (err) {
+                    res.send('Error en el find del Spot')
+                }
+                res.render('SpotByUser', { title: 'Spot Owner Managment', user: user, listing: data })
+            })
+    })
+    .delete((req, res) =>{
+        Spot.findOneAndRemove({ _id: req.params.id})
+        .exec((err)=>{
+            if(!err){
+                res.redirect('/spotowner')
+            }else{
+                console.log(err)
+                res.redirect('/')
+            }
+        })
+    })*/
 module.exports = router;
