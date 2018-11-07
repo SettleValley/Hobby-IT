@@ -114,7 +114,7 @@ router.route('/detail/:id')
         })
       })
 //Owner Spot Managment
-router.route('/spotowner/:id')
+router.route('/spotowner')
     .get((req, res) => {
         const user = req.user
 
@@ -126,16 +126,21 @@ router.route('/spotowner/:id')
                 res.render('SpotByUser', { title: 'Spot Owner Managment', user: user, listing: data })
             })
     })
-    .delete((req, res) => {
-        Spot.findOneAndRemove({ _id: req.params.id })
-            .exec((err) => {
-                if (!err) {
-                    res.redirect('/spotowner')
-                } else {
-                    console.log(err)
-                    res.redirect('/')
+router.route('/remove/:id')
+    .get((req, res) => {
+        const id = req.params._id
+        console.log('gattt demen')
+        console.log('este es el id: ' + id)
+        Spot.findOneAndDelete({_id: req.params.id }, (err, doc) => {
+            if (err) {
+                console.log('hay un erro en el delete perro')
+                 res.redirect('/')
+                }else{
+                console.log(doc)
+                res.redirect('/spotowner')
                 }
-            })
+
+        })
     })
 /*router.route('/spotowner/:id')
     .get((req, res)=>{
