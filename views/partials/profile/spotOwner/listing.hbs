@@ -1,0 +1,35 @@
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ">
+                <h4 class="font-weight-bold">List of spots registered</h4>
+                <hr class="my-4">
+            </div>
+        </div>
+
+        {{#each listing}}
+        <div class="row py-4 border-b">
+            <div class="col-md-3">
+                <img class="card-img" src="http://via.placeholder.com/720x480?text=HobbyIt" alt="Card image cap">
+            </div>
+            <div class="col-md-8">
+                <h5>{{this.name}}</h5>
+                <div class="Ranking">
+                    <!-- Just a example of the ranking place -->
+                    <a href="#"><i class="far fa-star"></i></a>
+                    <a href="#"><i class="far fa-star"></i></a>
+                    <a href="#"><i class="far fa-star"></i></a>
+                    <a href="#"><i class="far fa-star"></i></a>
+                </div>
+                <p class="card-text">{{this.description}}</p>
+                <a class="btn btn-light" href="/detail/{{this.id}}" role="button">Details</a>
+                <form class="link" action="{{../permantlink}}/detail/{{this._id}}" method="delete">
+                    <input type="submit" value="Eliminar">
+                </form>
+                <a class="btn btn-danger" href="/remove/{{this.id}}" role="button">Delete</a>
+
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</section>

@@ -1,0 +1,13 @@
+{
+    "name": "Hobby it",
+    "version": "0.0.1",
+    "authors": [
+        "Efrain Lay Castillo",
+        "Alberto Castillo"
+    ],
+    "license": "MIT",
+    "dependencies": {
+        "font-awsome": "latest",
+        "normalize-css": "latest"
+    }
+}
