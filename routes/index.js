@@ -60,11 +60,16 @@ router.route('/spot')
         if (err) {
           res.send('Error al subir la imagen')
         }
+
+        //nuevo
         let spot = new Spot()
+        let category = new Category()
+
         spot.status = true
         spot.name = req.body.name
         spot.description = req.body.description
         spot.addedBy = req.user
+        category.title = req.body.categories
         spot.address.lat = req.body.lat
         spot.address.lng = req.body.lng
         spot.gallery = req.files
