@@ -63,24 +63,32 @@ router.route('/spot')
 
         //nuevo
         let spot = new Spot()
-        let category = new Category()
-
         spot.status = true
         spot.name = req.body.name
         spot.description = req.body.description
         spot.addedBy = req.user
-        category.title = req.body.categories
         spot.address.lat = req.body.lat
         spot.address.lng = req.body.lng
         spot.gallery = req.files
-        spot.save((err,result)=>{
-          if (err) {
-            console.log(err);
-            return err
-          }
-          req.flash('success', 'Successfully Post')
-          res.redirect('/detail/' + spot.id)
+        spot.save().then(function(){
+          let category = new Category()
+          category.title = req.body.categories
+          category.status = true
+          category.userBy = req.user
+          category.spotBy = spot._id
+          category.save((err, data)=>{
+            if(err){
+              return err
+            }else{
+              console.log(data)
+              req.flash('success', 'Successfully Post')
+              //res.redirect('/detail/' + spot.id)
+              res.redirect('/')
+            }
+          })
         })
+
+        
       });
     })
 
