@@ -5,6 +5,9 @@ const router = express.Router()
 const Spot = require('../models/spot')
 const Comment = require('../models/comment')
 const Category = require('../models/category')
+const fs = require('fs')
+const {promisify} = require('util')
+const unlinkAsync = promisify(fs.unlink)
 //middleware
 const authLogin = require('../middleware/userAuth')
 //Multer Config
@@ -144,12 +147,15 @@ router.route('/remove/:id')
         const id = req.params._id
         console.log('gattt demen')
         console.log('este es el id: ' + id)
-        Spot.findOneAndDelete({_id: req.params.id }, (err, doc) => {
+        Spot.findOneAndDelete({_id: req.params.id }, async (err, doc) => {
             if (err) {
                 console.log('hay un erro en el delete perro')
                  res.redirect('/')
                 }else{
                 console.log(doc)
+                doc.gallery.map(async function(x){
+                  await unlinkAsync(x.path)
+                })
                 res.redirect('/spotowner')
                 }
 
