@@ -74,6 +74,7 @@ app.use(sassMiddleware({
     indentedSyntax: true, // true = .sass and false = .scss
     sourceMap: true
 }));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 /* global variable to use in routes or from the views*/
