@@ -12,6 +12,10 @@ const unlinkAsync = promisify(fs.unlink)
 const authLogin = require('../middleware/userAuth')
 //Multer Config
 const multer = require('multer')
+//Controllers
+const spotController = require('../controllers/spotController')
+
+
 const storage = multer.diskStorage({
   destination: function(req, file, cb){
     cb(null, './public/uploads/')
@@ -36,17 +40,7 @@ const upload = multer({
 }).array('spotImage', 12)
 
 /* GET home page. */
-router.get('/', (req, res)=>{
-  const user = req.user
-  Spot.find()
-      .populate('addedBy')
-      .exec((err, data)=>{
-        if (err) {
-          res.send('Error en el find del Spot')
-        }
-        res.render('index', {title: 'Hobby It', user: user, listing:data})
-      })
-})
+router.get('/', spotController.listingSpot)
 // Execute middleware under this router ../middleware/userAuth.js
 router.use('/', authLogin.isLoggedIn)
 
