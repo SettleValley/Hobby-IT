@@ -44,6 +44,14 @@ router.get('/', spotController.listingSpot)
 // Execute middleware under this router ../middleware/userAuth.js
 router.use('/', authLogin.isLoggedIn)
 
+router.route('/discover')
+      .get(async (req, res)=>{
+        const data = await spotController.prueba().then(function(content){return content})
+        console.log(data)
+        res.render('discover', {data: data})
+      })
+
+
 // Spot Routes
 router.route('/spot')
     .get((req, res)=>{
