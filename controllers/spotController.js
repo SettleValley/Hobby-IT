@@ -25,7 +25,7 @@ const filterSpot = async(query)=>{ //Filter data using Category Schema and popul
 
 //array functions
 const spotController = {
-    listingSpot: listingSpot().then(function(content){return content}),
+    listingSpot: listingSpot,
     filterSpot: function(query){
       filterSpot(query)
         .then(function(content){
