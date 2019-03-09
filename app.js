@@ -59,7 +59,7 @@ app.use(session({
     saveUninitialized: false,
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
     cookie: {
-        maxAge: 180 * 60 * 1000
+        maxAge: 90 * 30 * 1000
     }
 }));
 //flash init

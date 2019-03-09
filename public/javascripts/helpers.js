@@ -8,6 +8,17 @@ var register = function(Handlebars) {
     },
     bar: function(){
         return "BAR";
+    },
+    dateFormate: function(date){
+      var reformat = new Date(date),
+      month = '' + (reformat.getMonth() + 1),
+      day = '' + reformat.getDate(),
+      year = reformat.getFullYear();
+
+      if (month.length < 2) month = '0' + month;
+      if (day.length < 2) day = '0' + day;
+      
+      return [month, day, year].join('/');
     }
   };
 

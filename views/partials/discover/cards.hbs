@@ -1,0 +1,21 @@
+{{#each data as |spot|}}
+    <div class="col-md-4">
+        <div class="card" style="">
+            <img src="/uploads/{{spot.gallery.[0].filename}}" class="card-img-top img_fixed" alt="...">
+            <div class="card-body py-3">
+                <span class="font-weight-light size-10p"> Tourism</span>
+                
+                <h6 class="card-title text-capitalize font-weight-bold">
+                    {{spot.name}}
+                    -
+                    {{#if spot.status}}
+                        <span class="badge badge-light">Public</span>
+                    {{else}}
+                        <span class="badge badge-dark">Private</span>
+                    {{/if}}
+                </h6>
+                <p class="font-italic size-10p m-0">{{dateFormate spot.created_Date}}, {{spot.addedBy.name}}</p>
+            </div>
+        </div>
+    </div>
+{{/each}}

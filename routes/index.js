@@ -40,15 +40,25 @@ const upload = multer({
 }).array('spotImage', 12)
 
 /* GET home page. */
-router.get('/', spotController.listingSpot)
+router.route('/')
+      .get( async(req, res)=>{
+        const data = await spotController.listingSpot
+        res.render('index', {title: 'Hobby It', user: req.user, listing:data})
+      })
 // Execute middleware under this router ../middleware/userAuth.js
 router.use('/', authLogin.isLoggedIn)
 
 router.route('/discover')
       .get(async (req, res)=>{
-        const data = await spotController.prueba().then(function(content){return content})
-        console.log(data)
-        res.render('discover', {data: data})
+        let category = req.query.category
+        //functions
+        if(req.query.category){
+          const filter = await spotController.filterSpot(category)
+          res.render('discover', {data: filter, category: category ? category: false})
+        }else{
+          const box = await spotController.listingSpot
+          res.render('discover', {data: box, category: category ? category: false})
+        } 
       })
 
 
@@ -59,44 +69,34 @@ router.route('/spot')
       var successMsg = req.flash('success')[0];
       res.render('spot', {user: user, successMsg: successMsg, noMessages: !successMsg})
     })
-    .post((req, res)=>{
-      // console.log(req.files)
-      upload(req, res, function(err){
-        if (err) {
-          res.send('Error al subir la imagen')
-        }
-
-        //nuevo
-        let spot = new Spot()
-        spot.status = true
-        spot.name = req.body.name
-        spot.description = req.body.description
-        spot.addedBy = req.user
-        spot.address.lat = req.body.lat
-        spot.address.lng = req.body.lng
-        spot.gallery = req.files
-        spot.save().then(function(){
+    .post( (req, res)=>{
+        upload(req, res, async(err)=>{
+          if (err) {
+            res.send('Error al subir la imagen')
+          }else{
+           // this is where the photo data is
+           //nuevo
+          let spot = new Spot()
           let category = new Category()
-          category.title = req.body.categories
-          category.status = true
-          category.userBy = req.user
-          category.spotBy = spot._id
-          category.save((err, data)=>{
-            if(err){
-              return err
-            }else{
-              console.log(data)
+          spot.status = true
+          spot.name = req.body.name
+          spot.description = req.body.description
+          spot.addedBy = req.user
+          spot.address.lat = req.body.lat
+          spot.address.lng = req.body.lng
+          spot.gallery = req.files
+            let newSpot = await spot.save()
+            category.title = req.body.categories
+            category.status = true
+            category.userBy = req.user
+            category.spotBy = newSpot._id
+              let newCategory = await category.save()
               req.flash('success', 'Successfully Post')
               //res.redirect('/detail/' + spot.id)
-              res.redirect('/')
-            }
-          })
-        })
-
-        
-      });
+              res.redirect('/discover')       
+          }
+        })  
     })
-
 // Spot Details
 router.route('/detail/:id')
       .get((req, res)=>{

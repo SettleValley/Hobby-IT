@@ -1,27 +1,12 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Lugares por descubrir</h1>
+<section>
+    <div class="container py-5">
+        <div class="row">
+            {{#if category}}
+                {{>discover/filtered}}
+            {{else}}
+                {{> discover/cards}}
+            {{/if}}
         </div>
     </div>
-    <div class="row">
-        {{#each data as |spot|}}
-            <div class="col-md-4">
-                <div class="card border-0" style="">
-                    <img src="/uploads/{{spot.gallery.[0].filename}}" class="card-img-top" alt="...">
-                    <div class="card-body text-center p-0 py-3">
-                        <span> Tourism</span>
-                        {{#if spot.status}}
-                            <span>Public</span>
-                        {{else}}
-                            <span>Private</span>
-                        {{/if}}
-                        <h6 class="card-title">{{spot.name}}</h6>
-                        <span>April 24, {{spot.addedBy.name}}</span>
-                    </div>
-                </div>
-            </div>
-        {{/each}}
-    </div>
-</div>
+</section>
 
