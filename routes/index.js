@@ -50,8 +50,14 @@ router.use('/', authLogin.isLoggedIn)
 
 router.route('/discover')
       .get(async (req, res)=>{
-        const box = await spotController.listingSpot().then(function(content){return content})
-        res.render('discover', {data: box})
+        let category = req.query.category
+        if(req.query.category){
+          const filter = await spotController.filterSpot(category).then(function(content){return content})
+          res.render('discover', {data: filter, category: category ? category: false})
+        }else{
+          const box = await spotController.listingSpot()
+          res.render('discover', {data: box})
+        }
       })
 
 
