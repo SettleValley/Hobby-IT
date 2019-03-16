@@ -10,7 +10,14 @@ const listingSpot = async()=>{ // All data spot with merge User who added
     return 'error occured';
   }
 }
-
+const popularViews = async ()=>{
+  try{
+    let box = await Spot.find().populate('addedBy').sort({views: 'desc'})
+    return box
+  }catch(err){
+    return err
+  }
+}
 const filterSpot = async(query)=>{ //Filter data using Category Schema and populate all the spot data
   try{
     //let box = await Spot.find({"categories": {"name" : {$regex: query, $options: "i"}} })
@@ -42,6 +49,7 @@ const createSpot = async(req, res)=>{
 const spotController = {
     listingSpot: listingSpot,
     filterSpot: filterSpot,
-    createSpot: createSpot
+    createSpot: createSpot,
+    popularViews: popularViews
 }
 module.exports = spotController

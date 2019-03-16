@@ -43,7 +43,10 @@ const upload = multer({
 router.route('/')
       .get( async(req, res)=>{
         const data = await spotController.listingSpot
-        res.render('index', {title: 'Hobby It', user: req.user, listing:data})
+        const topViews = await spotController.popularViews().then(function(result){return result}).catch(function(err) {return err})
+
+        console.log(topViews)
+        res.render('index', {title: 'Hobby It', user: req.user, listing:data, topViews: topViews})
       })
 // Execute middleware under this router ../middleware/userAuth.js
 router.use('/', authLogin.isLoggedIn)
@@ -86,16 +89,24 @@ router.route('/spot')
 // Spot Details
 router.route('/detail/:id')
       .get((req, res)=>{
-        Spot.findById(req.params.id)
-            .populate('addedBy')
-            .populate('comments')
-            .exec((err, info)=>{
-              if (err) {
-                res.send(err)
-              }
-              console.log(info)
-              res.render('detail',{spot:info})
-            })
+        Spot.findOneAndUpdate( { _id: req.params.id }, { $inc: { views: 1 } }, {new: true },function(err, response){
+          if (err) {
+            return err
+           } else {
+            return 'success'
+           }
+        })
+          //console.log(responseUpdate)
+          Spot.findById(req.params.id)
+          .populate('addedBy')
+          .populate('comments')
+          .exec((err, info)=>{
+            if (err) {
+              res.send(err)
+            }
+            console.log(info)
+            res.render('detail',{spot:info})
+          })
       })
       .post((req, res)=>{
         let comment = new Comment()

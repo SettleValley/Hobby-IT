@@ -15,6 +15,7 @@ const SpotSchema = Schema({
     lat: String,
     lng: String
   },
+  views:{type: Number, default:0},
   created_Date: {type:Date, default: Date.now}
   // ,
   // categories: [{
