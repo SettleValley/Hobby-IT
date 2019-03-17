@@ -1,87 +1,17 @@
 {{#each topViews as |top|}}
-    {{top.name}}
-{{/each}}
-
 <div class="col-md-4">
-    <a href="#">
+    
         <div class="card item border-0 rounded-0" >
-        <img class="card-img" src="/images/fishing.jpg" alt="Card image">
+            <img class="card-img hv-img img_fixed" src="/uploads/{{top.gallery.0.filename}}" alt="Card image"/>
             <div class="card-img-overlay box_text text-center">
-                <h2 class="card-title text-white text-uppercase">Fishing</h2>
+                <a href="/discover?category={{top.categories.0.name}}" class="badge badge-light">{{top.categories.0.name}}</a>
+                <a href="/detail/{{top.id}}">
+                    <h2 class="card-title text-white text-uppercase">{{top.name}}</h2>                
+                </a>
                 <p class="card-text text-white">
 					Lorem Ipsum is simply dummy text of the printing and typesetting...
 				</p>
             </div>
         </div>
-    </a>
 </div>
-<div class="col-md-4">
-    <a href="#">
-        <div class="card item border-0 rounded-0">
-        <img class="card-img" src="/images/kayak.jpg" alt="Card image">
-            <div class="card-img-overlay box_text text-center">
-                <h2 class="card-title text-white text-uppercase" >Kayaking</h2>
-                <p class="card-text text-white">
-					Lorem Ipsum is simply dummy text of the printing and typesetting...
-				</p>
-            </div>
-        </div>
-    </a>
-</div>
-<div class="col-md-4">
-    <a href="#">
-        <div class="card item border-0 rounded-0">
-        <img class="card-img" src="/images/blog.jpg" alt="Card image">
-            <div class="card-img-overlay box_text text-center">
-                <h2 class="card-title text-white text-uppercase">Blog</h2>
-                <p class="card-text text-white">
-					Lorem Ipsum is simply dummy text of the printing and typesetting...
-				</p>
-            </div>
-        </div>
-    </a>
-</div>
-<div class="clearfix"></div>
-<div class="col-md-12 text-center">
-    <h4 class="text-capitalize">TRENDING POSTS</h4>
-</div>
-<div class="col-md-3">
-    <div class="card border-0" style="">
-        <img src="/images/london.jpg" class="card-img-top" alt="...">
-        <div class="card-body text-center p-0 py-3">
-            <span> Tourism</span>
-            <h6 class="card-title">What Makes Your City’s Style Unique</h6>
-            <span>April 24, 2016 Joanna Wellick</span>
-        </div>
-    </div>
-</div>
-<div class="col-md-3">
-    <div class="card border-0" style="">
-        <img src="/images/london.jpg" class="card-img-top" alt="...">
-        <div class="card-body text-center p-0 py-3">
-            <span> Tourism</span>
-            <h6 class="card-title">What Makes Your City’s Style Unique</h6>
-            <span>April 24, 2016 Joanna Wellick</span>
-        </div>
-    </div>
-</div>
-<div class="col-md-3">
-    <div class="card border-0" style="">
-        <img src="/images/london.jpg" class="card-img-top" alt="...">
-        <div class="card-body text-center p-0 py-3">
-            <span> Tourism</span>
-            <h6 class="card-title">What Makes Your City’s Style Unique</h6>
-            <span>April 24, 2016 Joanna Wellick</span>
-        </div>
-    </div>
-</div>
-<div class="col-md-3">
-    <div class="card border-0" style="">
-        <img src="/images/london.jpg" class="card-img-top" alt="...">
-        <div class="card-body text-center p-0 py-3">
-            <span> Tourism</span>
-            <h6 class="card-title">What Makes Your City’s Style Unique</h6>
-            <span>April 24, 2016 Joanna Wellick</span>
-        </div>
-    </div>
-</div>
+{{/each}}

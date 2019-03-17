@@ -10,6 +10,9 @@
   top: inherit !important;
   z-index: 2; }
 
+.hv-img {
+  min-height: 500px; }
+
 .img_fixed {
   object-fit: cover;
   width: 100%;

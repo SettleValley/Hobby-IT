@@ -12,7 +12,7 @@ const listingSpot = async()=>{ // All data spot with merge User who added
 }
 const popularViews = async ()=>{
   try{
-    let box = await Spot.find().populate('addedBy').sort({views: 'desc'})
+    let box = await Spot.find().populate('addedBy').sort({views: 'desc'}).limit(3)
     return box
   }catch(err){
     return err
