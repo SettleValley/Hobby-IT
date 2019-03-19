@@ -1,11 +1,10 @@
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">
     {{#each spot.gallery as |image| }}
-      <div class="carousel-item {{#if @index}}active{{/if}}">
+      <div class="carousel-item {{#if @first}}active{{/if}}">
         <img class="d-block w-100" src="/uploads/{{image.filename}}" alt="First slide">
-        <!-- <img class="d-block w-100" src="http://via.placeholder.com/720x480?text=HobbyIt" alt="First slide"> -->
       </div>
-    {{/each}}
+    {{/each}}             
   </div>
   <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>

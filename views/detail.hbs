@@ -1,31 +1,61 @@
-<div class="container-fluid">
+{{>banner}}
+<div class="container">
   <div class="row pt-4">
-    <div class="col-md-4">
-      {{>spot/map}}
-    </div>
-    <div class="col-md-4">
-      <div class="col-md-12">
-        {{> spot/header }}
-      </div>
-      <h6>Description</h6>
-      <hr>
-      <div class="text-left descript_card mb-3">
-        <div class="card border-light">
-          <div class="card-body bg-light">
-            <p class="w-100 text-justify">{{spot.description}}</p>
+    <div class="col-md-6">
+      <span class="card-subtitle mb-2 text-muted">{{dateFormate spot.created_Date}} 
+        
+        {{#each spot.categories}} 
+            {{#if @first}}
+             <i class="badge badge-secondary">{{this.name}}</i>
+            {{/if}}
+        {{/each}}
+        </span>
+
+        <h1>{{spot.name}}.</h1>
+        <p>
+          {{spot.description}}
+        </p>
+        <div class="row">
+          <div class="col">
+            <div class="Ranking">
+                    <!-- Just a example of the ranking place -->
+                    <a href="#"><i class="far fa-star"></i></a>
+                    <a href="#"><i class="far fa-star"></i></a>
+                    <a href="#"><i class="far fa-star"></i></a>
+                    <a href="#"><i class="far fa-star"></i></a>
+                </div>
+          </div>
+          <div class="col">
+            By: {{spot.addedBy.name}}
+          </div>
+          <div class="col">
+            Views: {{spot.views}}
           </div>
         </div>
-      </div>
-      <h6>Amenities</h6>
-      <hr>
-      <div class="row mb-3">
-          {{> spot/amenities }}
-      </div>
+        
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
       {{> spot/carrousel }}
-      <div class="row">
-        <div class="col-md-12">
+    </div>
+      <div class="clearfix"></div>
+      <div class="col-md-12">
+        <h6>Description</h6>
+        <hr>
+        <div class="text-left descript_card mb-3">
+          <div class="card border-light">
+            <div class="card-body bg-light">
+              <p class="w-100 text-justify">{{spot.description}}</p>
+            </div>
+          </div>
+        </div>
+        <h6>Amenities</h6>
+        <hr>
+        <div class="row mb-3">
+          {{>spot/map}}
+            {{> spot/amenities }}
+        </div>
+      </div>
+      <div class="col-md-12">
           <div class="accordion" id="accordionExample">
             <div class="card border-light mb-3">
               <div class="card-header" id="headingOne">
@@ -62,7 +92,5 @@
         <div class="col-md-12">
           {{> spot/comment}}
         </div>
-      </div>
-    </div>
   </div>
 </div>
